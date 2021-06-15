@@ -52,24 +52,41 @@ You may modify these values all you want in the exp file.
 
 
 Level 				EXP needed
-0-10				100
-11-20				110
-21-30				125
-31-40				150
-41-50				175
-51-60				200
-61-70				225
-71-80				250
-81-90				275
+0-10				  100
+
+11-20				  110
+
+21-30				  125
+
+31-40				  150
+
+41-50				  175
+
+51-60				  200
+
+61-70				  225
+
+71-80				  250
+
+81-90				  275
+
 91-100				300
+
 101-150				325
+
 151-200				350
+
 201-250				375
+
 251-300				400
+
 301-400				425
+
 401-500				450
+
 501-600				475
-601-100000			500 #if you're up here I'll be amazed.
+
+601-10000			500 #if you're up here I'll be amazed.
 
 
 To reset all your progress/levels back to zero - run:
