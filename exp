@@ -179,8 +179,8 @@ done
 # check current EXP ammount:
 currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
 # check progress to next level
-next_level
-if [ $currentEXP -ge $level_CAP ]
+next_level #this defines the level_cap based on your current level
+if [ $currentEXP -ge $level_CAP ] #if your current EXP is greater than or equal to the level cap, level up
 then
 	level_up
 fi
