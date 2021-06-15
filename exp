@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #EXP leveling system, designed/written/maintained by: Will Russell (Scotchman0)
-Version=v:0.1
+Version=v0.1
 #Release date: 6/15/21
 
 #define what is needed by the program:
@@ -30,7 +30,7 @@ level_up() {
 # provide n value of break reward
 echo "level_up!" #placeholder
 #shuf command shuffles random reward line
-shuf -n 1 ~/github/exp_gen/level_up.txt
+shuf -n 1 ~/.exp_gen/level_up.txt
 LEVEL=$(cat ~/.exp_gen/my_level)
 echo $((1+$LEVEL)) > ~/.exp_gen/my_level
 status_check
@@ -66,6 +66,7 @@ mkdir ~/.exp_gen
 touch ~/.exp_gen/exp_gen.conf
 touch ~/.exp_gen/my_exp
 touch ~/.exp_gen/my_level
+cp ./level_up.txt ~/.exp_gen/
 echo "Version=$Version" > ~/.exp_gen/exp_gen.conf
 }
 
