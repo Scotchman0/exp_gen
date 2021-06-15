@@ -134,13 +134,12 @@ while test $# -gt 0; do
 			echo "------------"
 			echo "options:"
 			echo ""
-			echo "status   ------- prints current exp ammount and current level"
-			echo "add (e)  ------- adds (e) ammount of exp immediately"
-			echo "example: exp add 5"
-			echo "time (e) ------- waits for specified time (in minutes) then adds (e)"
-			echo "example: exp time 5 ... 'how long to wait? n=?' 15"
+			echo " status   ------- prints current exp ammount and current level"
+			echo " add [e]  ------- adds [e] ammount of exp immediately"
+			echo " --> example: exp add 5"
+			echo " timer [e] ------ waits (in minutes) then adds [e]"
+			echo " --> example: exp time 5 (system prompts for wait time)"
 			echo ""
-
 			echo "reading the instructions! Love to see it, have some EXP:"
 			e=2
 			exp_gain
@@ -157,7 +156,7 @@ while test $# -gt 0; do
 			fi
 			break
 			;;
-		time|-t)
+		timer|-t)
 			shift #drops the word time or -t
 	      if test $# -gt 0; then
 	      e="$@"
