@@ -1,14 +1,22 @@
 #!/bin/bash
 
 #EXP leveling system, designed/written/maintained by: Will Russell (Scotchman0)
-#Version: 0.1
+Version=v:0.1
 #Release date: 6/15/21
 
 #define what is needed by the program:
 
+exp_tracker() {
+#for i in ./my_exp_test
+echo "EXP:"
+awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp
+echo ""
+}
+
 level_tracker() {
 #this will check a running log file for ongoing totals to evaluate level score
-echo "level_tracker" #placeholder
+echo "Level:"
+cat ~/github/exp_gen/my_level
 }
 
 level_difficulty() {
@@ -20,6 +28,10 @@ level_up() {
 # When you hit a level cap and level_tracker rolls over, echo random line from "level_up.txt" +
 # provide n value of break reward
 echo "level_up!" #placeholder
+#shuf command shuffles random reward line
+shuf -n 1 ~/github/exp_gen/level_up.txt
+awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp
+
 }
 
 timer() {
@@ -37,7 +49,7 @@ echo "time_loop" #placeholder
 exp_gain() {
 # the basic building block of EXP_GEN, captures user defined 'e' value and applies it to logged exp value.
 
-echo "$e" >> ./my_exp_test
+echo "$e" >> ~/.exp_gen/my_exp
 }
 
 
@@ -45,7 +57,9 @@ first_run_setup(){
 # checks to see if version grepped from exp is same as latest in git folder, if not copies latest to ~/bin/
 # checks to see if ~/.exp_gen/ exists, if not, creates it + copies in all reference files
 echo "placeholder setup script"
-
+mkdir ~/.exp_gen
+touch ~/.exp_gen/exp_gen.conf
+echo "Version=$Version" > ~/.exp_gen/exp_gen.conf
 }
 
 uninstall () {
@@ -56,17 +70,69 @@ echo "uninstall completed"
 exit 0
 }
 
+reset_all() {
+	echo "clearing levels and exp gain"
+	> ~/.exp_gen/my_level
+	> ~/.exp_gen/my_exp
+}
+
+########################BEGIN SCRIPT######################################
+
+#CHECK FOR SETUP files (only relevant on first run ever)
+FILENAME=~/.exp_gen/exp_gen.conf
+if [ ! -f "$FILENAME" ]; then
+   first_run_setup
+fi
+
 
 #basic launch block to get this off the ground and help me start improving it:
-
 while test $# -gt 0; do
 	case $1 in
-		add)
-			read e
+		help|h|-h)
+			echo "experience generator (exp_gen) help:"
+			echo "------------"
+			echo "basic command structure: $ exp [options] [e]"
+			echo "e = experience to gain (applicable with add|time|timeloop|log|logloop"
+			echo "------------"
+			echo "options:"
+			echo ""
+			echo "status   ------- prints current exp ammount and current level"
+			echo "add (e)  ------- adds (e) ammount of exp immediately"
+			echo "example: exp add 5"
+			echo "time (e) ------- waits for specified time (in minutes) then adds (e)"
+			echo "example: exp time 5 ... 'how long to wait? n=?' 15"
+			echo ""
+
+			echo "reading the instructions! Love to see it, have some EXP:"
+			e=2
 			exp_gain
 			echo "earned '$e' exp!"
+			echo "check how much you have with: $ exp status"
 			break
 			;;
+		add|-a) #example: exp add 5
+		shift #this drops the word 'add', capturing only the value of 'e' that follows
+	      if test $# -gt 0; then
+			e="$@"
+			exp_gain
+			echo "earned '$e' exp!"
+			fi
+			break
+			;;
+		status) # example: exp level (outputs current tracking, shows nice graphical trace)
+			echo "your current exp and level are:"
+			exp_tracker
+			level_tracker
+			break
+			;;
+		reset_progress) #REMOVE ME
+			reset_all
+			break
+			;;
+		*)
+			echo "try exp help for list of commands"
+			break
+
 	esac
 done
 
