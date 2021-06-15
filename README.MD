@@ -6,7 +6,7 @@ EXP does nothing and the points don't matter, but it sure does feel good to earn
 
 Leveling up: Results in a positive reinforcement message echoed to console + reward message generally in the form of "Take a break, you earned it!" Designed to entice you to work until you hit a level up, and then take a break doing something you want to do. 
 
-#Installation:
+# Installation:
 1. clone this repository to a local directory in your system:
 
 > git clone https://github.com/scotchman0/exp_gen.git
