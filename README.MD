@@ -4,13 +4,14 @@ This system is designed to help you "gamify" your projects and tasks into achiev
 
 EXP does nothing and the points don't matter, but it sure does feel good to earn. 
 
-Leveling up: Results in a positive reinforcement message echoed to console + reward message generally in the form of "Take a break, you earned it!" with -n ammount of time attached. Designed to entice youto work until you hit a level up, and then take a break doing something you want to do. 
+Leveling up: Results in a positive reinforcement message echoed to console + reward message generally in the form of "Take a break, you earned it!" Designed to entice you to work until you hit a level up, and then take a break doing something you want to do. 
 
 There are several ways to earn EXP:
 
 1. exp command line manual addition:
 $ exp add [e]
 using the exp add command and including a value [e] will add or subtract that much EXP from your running total.
+Just finished a git commit/finished a chapter/completed a workout?
 
 > $ exp add 5
 > earned '5' exp!
@@ -35,8 +36,6 @@ command options: timer or timeloop:
 > now waiting for '300' seconds, press ctrl+c to cancel
 > earned '5' exp!
 > ...
-
-3. Future planned implementation: tagging to task completion via other cli tasks, or keyboard button press counting (note - I have no interest in keylogging but it might be fun to see if it'll give me exp every 500 keys I push. If I can do this safely without recording actual keypress DATA I'll think about it. currently not implemented.)
 
 # Leveling: 
 Leveling occurs on a growth scale, so earning EXP goes further in the beginning than in the late game, but I also recognize that sometimes you just want to earn EXP and level up like crazy sometimes so there's a few ways that this will work. You can also always go in and set the level caps yourself, just modify the block 
