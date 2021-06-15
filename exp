@@ -6,17 +6,18 @@ Version=v:0.1
 
 #define what is needed by the program:
 
-exp_tracker() {
-#for i in ./my_exp_test
-echo "EXP:"
-awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp
-echo ""
+exp_gain() {
+# the basic building block of EXP_GEN, captures user defined 'e' value and applies it to logged exp value.
+# the file ~/.exp_gen/my_exp is effectively a log that is wiped on level up to avoid an overflow
+echo "$e" >> ~/.exp_gen/my_exp
 }
 
-level_tracker() {
-#this will check a running log file for ongoing totals to evaluate level score
-echo "Level:"
-cat ~/github/exp_gen/my_level
+status_check() {
+echo "Current EXP:"
+awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp
+echo ""
+echo "Current Level:"
+cat ~/.exp_gen/my_level
 }
 
 level_difficulty() {
@@ -30,8 +31,9 @@ level_up() {
 echo "level_up!" #placeholder
 #shuf command shuffles random reward line
 shuf -n 1 ~/github/exp_gen/level_up.txt
-awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp
-
+LEVEL=$(cat ~/.exp_gen/my_level)
+echo $((1+$LEVEL)) > ~/.exp_gen/my_level
+status_check
 }
 
 timer() {
@@ -45,13 +47,11 @@ time_loop() {
 echo "time_loop" #placeholder
 }
 
-
-exp_gain() {
-# the basic building block of EXP_GEN, captures user defined 'e' value and applies it to logged exp value.
-
-echo "$e" >> ~/.exp_gen/my_exp
+level_gain_monitor(){
+	#this is the core block function that observes how much EXP you have, when that value 
+	#equates to a "level up", and triggers the level_up function.
+echo "level_gain_monitor" #placeholder
 }
-
 
 first_run_setup(){
 # checks to see if version grepped from exp is same as latest in git folder, if not copies latest to ~/bin/
@@ -59,20 +59,14 @@ first_run_setup(){
 echo "placeholder setup script"
 mkdir ~/.exp_gen
 touch ~/.exp_gen/exp_gen.conf
+touch ~/.exp_gen/my_exp
+touch ~/.exp_gen/my_level
 echo "Version=$Version" > ~/.exp_gen/exp_gen.conf
-}
-
-uninstall () {
-# confirms user wants to uninstall/delete all exp + level data then purges files:
-# removes ~/.exp_gen/ recursively, clearing all install files
-# removes copy of 'exp' from ~/bin
-echo "uninstall completed"
-exit 0
 }
 
 reset_all() {
 	echo "clearing levels and exp gain"
-	> ~/.exp_gen/my_level
+ echo "0" > ~/.exp_gen/my_level
 	> ~/.exp_gen/my_exp
 }
 
@@ -121,12 +115,15 @@ while test $# -gt 0; do
 			;;
 		status) # example: exp level (outputs current tracking, shows nice graphical trace)
 			echo "your current exp and level are:"
-			exp_tracker
-			level_tracker
+			status_check
 			break
 			;;
 		reset_progress) #REMOVE ME
 			reset_all
+			break
+			;;
+		level_up_test)
+			level_up
 			break
 			;;
 		*)
