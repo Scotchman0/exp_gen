@@ -1,4 +1,4 @@
-#EXP_GEN: Experience Generator/tracker
+# EXP_GEN: Experience Generator/tracker
 
 This system is designed to help you "gamify" your projects and tasks into achievable EXP gains.
 
@@ -39,13 +39,21 @@ Leveling occurs on a logrythmic scale, so earning EXP goes further in the beginn
 DEFAULT:
 levels 1-10 are each achieved at 50xp
 11-20 -> 75xp
+
 21-30 -> 100xp
+
 31-40 -> 125xp
+
 41-50 -> 150xp
+
 51-60 -> 175xp
+
 61-70 -> 200xp
+
 71-100 -> 225xp
+
 100-200 -> 250xp
+
 201-300 -> 275xp
 ...
 
