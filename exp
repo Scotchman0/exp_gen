@@ -20,6 +20,8 @@ echo ""
 echo "Current Level:"
 cat ~/.exp_gen/my_level
 next_level
+echo "exp needed until next level:"
+echo $(($level_CAP - $currentEXP))
 }
 
 next_level() {
@@ -27,11 +29,41 @@ next_level() {
 currentLEVEL=$(cat ~/.exp_gen/my_level)
 if [ $currentLEVEL -le 10 ]
 	then level_CAP=100
-elif [ currentLEVEL -ge 11 & -le 20 ]
+elif [ $currentLEVEL -le 20 ]
+	then level_CAP=110
+elif [ $currentLEVEL -le 30 ]
+	then level_CAP=125
+elif [ $currentLEVEL -le 40 ]
 	then level_CAP=150
+elif [ $currentLEVEL -le 50 ]
+	then level_CAP=175
+elif [ $currentLEVEL -le 60 ]
+	then level_CAP=200		
+elif [ $currentLEVEL -le 70 ]
+	then level_CAP=225
+elif [ $currentLEVEL -le 80 ]
+	then level_CAP=250
+elif [ $currentLEVEL -le 90 ]
+	then level_CAP=275
+elif [ $currentLEVEL -le 100 ]
+	then level_CAP=300
+elif [ $currentLEVEL -le 150 ]
+	then level_CAP=325
+elif [ $currentLEVEL -le 200 ]
+	then level_CAP=350
+elif [ $currentLEVEL -le 250 ]
+	then level_CAP=375
+elif [ $currentLEVEL -le 300 ]
+	then level_CAP=400
+elif [ $currentLEVEL -le 400 ]
+	then level_CAP=425
+elif [ $currentLEVEL -le 500 ]
+	then level_CAP=450
+elif [ $currentLEVEL -le 600 ]
+	then level_CAP=475
+elif [ $currentLEVEL -le 10000 ]
+	then level_CAP=500
 fi
-echo "exp needed until next level:"
-echo $(($level_CAP - $currentEXP))
 }
 
 level_up() {
@@ -42,7 +74,7 @@ echo "level_up!" #placeholder
 shuf -n 1 ~/.exp_gen/level_up.txt
 LEVEL=$(cat ~/.exp_gen/my_level)
 echo $((1+$LEVEL)) > ~/.exp_gen/my_level
-status_check
+echo "new level: $(cat ~/.exp_gen/my_level)"
 
 #clear exp counter and keep rollover:
 #placeholder - for now, every level up is at 100xp
@@ -59,12 +91,6 @@ time_loop() {
 #provides basic timer functionality (sleep/wait) n minutes and then adds defined 'e' exp gain
 # runs until manually stopped (no break while loop).
 echo "time_loop" #placeholder
-}
-
-level_gain_monitor(){
-	#this is the core block function that observes how much EXP you have, when that value 
-	#equates to a "level up", and triggers the level_up function.
-echo "level_gain_monitor" #placeholder
 }
 
 first_run_setup(){
@@ -153,9 +179,8 @@ done
 # check current EXP ammount:
 currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
 # check progress to next level
-level_marker=100
-
-if [ $currentEXP -ge $level_marker ]
+next_level
+if [ $currentEXP -ge $level_CAP ]
 then
 	level_up
 fi
