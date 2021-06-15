@@ -34,10 +34,39 @@ echo "time_loop" #placeholder
 }
 
 
-exp() {
+exp_gain() {
 # the basic building block of EXP_GEN, captures user defined 'e' value and applies it to logged exp value.
-echo "exp" #placeholder
+
+echo "$e" >> ./my_exp_test
 }
 
 
+first_run_setup(){
+# checks to see if version grepped from exp is same as latest in git folder, if not copies latest to ~/bin/
+# checks to see if ~/.exp_gen/ exists, if not, creates it + copies in all reference files
+echo "placeholder setup script"
+
+}
+
+uninstall () {
+# confirms user wants to uninstall/delete all exp + level data then purges files:
+# removes ~/.exp_gen/ recursively, clearing all install files
+# removes copy of 'exp' from ~/bin
+echo "uninstall completed"
+exit 0
+}
+
+
+#basic launch block to get this off the ground and help me start improving it:
+
+while test $# -gt 0; do
+	case $1 in
+		add)
+			read e
+			exp_gain
+			echo "earned '$e' exp!"
+			break
+			;;
+	esac
+done
 
