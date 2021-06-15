@@ -6,6 +6,24 @@ EXP does nothing and the points don't matter, but it sure does feel good to earn
 
 Leveling up: Results in a positive reinforcement message echoed to console + reward message generally in the form of "Take a break, you earned it!" Designed to entice you to work until you hit a level up, and then take a break doing something you want to do. 
 
+#Installation:
+1. clone this repository to a local directory in your system:
+
+> git clone https://github.com/scotchman0/exp_gen.git
+
+2. cd into the cloned directory and make a symlink to your home/username/bin folder:
+
+>$ mkdir ~/bin
+
+>$ ln -s /home/username/path/to/exp_gen/exp ~/bin/exp
+
+because ~/bin is part of your $PATH variable by default (if it isn't see below) it should become executable automatically when you call 'exp' in the command line. 
+
+3. run exp help to get an overview of the syntax/usage, or get started with the below command options: $ exp (status|add|timer|timeloop) [e]  --> e=experience to gain
+
+> $ exp help
+===========================================================================================
+# Earning EXP:
 There are several ways to earn EXP:
 
 1. exp command line manual addition:

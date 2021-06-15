@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #EXP leveling system, designed/written/maintained by: Will Russell (Scotchman0)
-Version=v0.1
+Version=v1.0
 #Release date: 6/15/21
 
 #define what is needed by the program:
@@ -112,7 +112,7 @@ touch ~/.exp_gen/exp_gen.conf
 touch ~/.exp_gen/my_exp
 touch ~/.exp_gen/my_level
 cp ./level_up.txt ~/.exp_gen/
-echo "#!/bin/bash" >> ~/.exp_gen/exp_gen.conf
+echo "#!/bin/bash" > ~/.exp_gen/exp_gen.conf
 echo "Version=$Version" >> ~/.exp_gen/exp_gen.conf
 }
 
@@ -120,6 +120,19 @@ reset_all() {
 echo "clearing levels and exp gain"
 echo "0" > ~/.exp_gen/my_level
 > ~/.exp_gen/my_exp
+}
+
+uninstall () {
+# confirms user wants to uninstall/delete all exp + level data then purges files:
+# removes ~/.exp_gen/ recursively, clearing all install files
+# removes copy of 'exp' from ~/bin
+echo "uninstall completed"
+rm ~/.exp_gen/my_level
+rm ~/.exp_gen/my_exp
+rm ~/.exp_gen/exp_gen.conf
+rm ~/.exp_gen/level_up.txt
+rmdir ~/.exp_gen
+exit 0
 }
 
 ########################BEGIN SCRIPT######################################
@@ -207,6 +220,10 @@ while test $# -gt 0; do
 			touch ~/.exp_gen/exp_gen.conf
 			echo "#!/bin/bash" >> ~/.exp_gen/exp_gen.conf
 			echo "Version=$Version" >> ~/.exp_gen/exp_gen.conf
+			break
+			;;
+		uninstall_exp) #removal block to clear local ~/.exp_gen/*
+			uninstall
 			break
 			;;
 		*)
