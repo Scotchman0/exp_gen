@@ -84,6 +84,10 @@ echo $(($currentEXP-$level_CAP)) > ~/.exp_gen/my_exp
 timer() {
 # provides basic timer functionality (sleep/wait) n minutes and then adds defined 'e' exp gain
 echo "timer" #placeholder
+#convert wait time to seconds:
+sleep_time=$(echo $(($wait_time * 60)))
+echo "now waiting for '$sleep_time' seconds, press ctrl+c to cancel"
+sleep $sleep_time
 }
 
 time_loop() {
@@ -153,16 +157,24 @@ while test $# -gt 0; do
 			fi
 			break
 			;;
+		time|-t)
+			shift #drops the word time or -t
+	      if test $# -gt 0; then
+	      e="$@"
+			echo "wait how long before gaining '$e' exp? (in minutes - whole integers only)"
+			read wait_time
+			timer
+			exp_gain
+			echo "earned '$e' exp!"
+			fi
+			break
+			;;
 		status) # example: exp level (outputs current tracking, shows nice graphical trace)
 			status_check
 			break
 			;;
-		reset_progress) #REMOVE ME
+		reset_progress) #resets all levels and exp back to zero
 			reset_all
-			break
-			;;
-		level_up_test)
-			level_up
 			break
 			;;
 		*)
