@@ -14,7 +14,7 @@ echo "$e" >> ~/.exp_gen/my_exp
 
 status_check() {
 echo "Current EXP:"
-awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp
+awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp #this sums the lines in the exp gain log
 echo ""
 echo "Current Level:"
 cat ~/.exp_gen/my_level
@@ -34,6 +34,11 @@ shuf -n 1 ~/github/exp_gen/level_up.txt
 LEVEL=$(cat ~/.exp_gen/my_level)
 echo $((1+$LEVEL)) > ~/.exp_gen/my_level
 status_check
+
+#clear exp counter and keep rollover:
+#placeholder - for now, every level up is at 100xp
+currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
+echo $(($currentEXP-100)) > ~/.exp_gen/my_exp
 }
 
 timer() {
@@ -132,4 +137,17 @@ while test $# -gt 0; do
 
 	esac
 done
+
+#This part of the block is where the system checks for the following and determines if
+#it's time to level up or not:
+
+# check current EXP ammount:
+currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
+# check progress to next level
+level_marker=100
+
+if [ $currentEXP -ge $level_marker ]
+then
+	level_up
+fi
 
