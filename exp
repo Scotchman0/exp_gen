@@ -20,6 +20,7 @@ echo ""
 echo "Current Level:"
 cat ~/.exp_gen/my_level
 next_level
+source ~/.exp_gen/exp_gen.conf
 echo "exp needed until next level:"
 echo $(($level_CAP - $currentEXP))
 }
@@ -69,12 +70,13 @@ fi
 level_up() {
 # When you hit a level cap and level_tracker rolls over, echo random line from "level_up.txt" +
 # provide n value of break reward
-echo "level_up!" #placeholder
+echo "Level Up!" #placeholder
 #shuf command shuffles random reward line
 shuf -n 1 ~/.exp_gen/level_up.txt
 LEVEL=$(cat ~/.exp_gen/my_level)
 echo $((1+$LEVEL)) > ~/.exp_gen/my_level
 echo "new level: $(cat ~/.exp_gen/my_level)"
+echo "take a little break, you've earned it!"
 
 #clear exp counter and keep rollover:
 currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
@@ -83,7 +85,6 @@ echo $(($currentEXP-$level_CAP)) > ~/.exp_gen/my_exp
 
 timer() {
 # provides basic timer functionality (sleep/wait) n minutes and then adds defined 'e' exp gain
-echo "timer" #placeholder
 #convert wait time to seconds:
 sleep_time=$(echo $(($wait_time * 60)))
 echo "now waiting for '$sleep_time' seconds, press ctrl+c to cancel"
@@ -91,27 +92,34 @@ sleep $sleep_time
 }
 
 time_loop() {
-#provides basic timer functionality (sleep/wait) n minutes and then adds defined 'e' exp gain
-# runs until manually stopped (no break while loop).
-echo "time_loop" #placeholder
+# basic sleep timer but loops indefinitely, granting [e] exp every [n] minutes
+# mostly designed to help encourage study blocks or project work time. Set it
+# then return later and see those sick level gains.
+while true; do
+	sleep_time=$(echo $(($wait_time * 60)))
+	echo "now waiting for '$sleep_time' seconds, press ctrl+c to cancel"
+	sleep $sleep_time
+	exp_gain
+	echo "gained +'$e' exp!"
+done
 }
 
 first_run_setup(){
 # checks to see if version grepped from exp is same as latest in git folder, if not copies latest to ~/bin/
-# checks to see if ~/.exp_gen/ exists, if not, creates it + copies in all reference files
-echo "placeholder setup script"
+# checks to see if ~/.exp_gen/exp_gen.conf exists, if not, creates it + copies in all reference files
 mkdir ~/.exp_gen
 touch ~/.exp_gen/exp_gen.conf
 touch ~/.exp_gen/my_exp
 touch ~/.exp_gen/my_level
 cp ./level_up.txt ~/.exp_gen/
-echo "Version=$Version" > ~/.exp_gen/exp_gen.conf
+echo "#!/bin/bash" >> ~/.exp_gen/exp_gen.conf
+echo "Version=$Version" >> ~/.exp_gen/exp_gen.conf
 }
 
 reset_all() {
-	echo "clearing levels and exp gain"
- echo "0" > ~/.exp_gen/my_level
-	> ~/.exp_gen/my_exp
+echo "clearing levels and exp gain"
+echo "0" > ~/.exp_gen/my_level
+> ~/.exp_gen/my_exp
 }
 
 ########################BEGIN SCRIPT######################################
@@ -134,11 +142,14 @@ while test $# -gt 0; do
 			echo "------------"
 			echo "options:"
 			echo ""
-			echo " status   ------- prints current exp ammount and current level"
-			echo " add [e]  ------- adds [e] ammount of exp immediately"
-			echo " --> example: exp add 5"
-			echo " timer [e] ------ waits (in minutes) then adds [e]"
-			echo " --> example: exp time 5 (system prompts for wait time)"
+			echo " help | -h | h  ------- prints breif help, then exits"
+			echo " status         ------- prints current exp ammount and current level"
+			echo " add | -a [e]   ------- adds [e] ammount of exp immediately"
+			echo " timer | -t [e] ------- waits (in minutes) then adds [e]"
+			echo " timeloop | -tl [e] --- waits (in minutes) then adds [e]"
+			echo " easy_mode      ------- sets level cap permanently at 50exp per level"
+			echo " normal_mode    ------- sets level cap back to normal - see readme"
+			echo " reset_progress ------- sets level and exp back to 0"
 			echo ""
 			echo "reading the instructions! Love to see it, have some EXP:"
 			e=2
@@ -156,7 +167,7 @@ while test $# -gt 0; do
 			fi
 			break
 			;;
-		timer|-t)
+		timer|-t) #links to the timer command which counts down n minutes and grants EXP.
 			shift #drops the word time or -t
 	      if test $# -gt 0; then
 	      e="$@"
@@ -168,12 +179,34 @@ while test $# -gt 0; do
 			fi
 			break
 			;;
+		timeloop|-tl) #links to the timeloop command which gains EXP every n minutes. 
+			shift #drops the word timeloop or -tl
+	      if test $# -gt 0; then
+	      e="$@"
+			echo "wait how long before gaining '$e' exp? (in minutes - whole integers only)"
+			echo "this will loop forever until manually stopped with ctrl+c - good for study blocks"
+			read wait_time
+			time_loop
+			fi
+			break
+			;;
 		status) # example: exp level (outputs current tracking, shows nice graphical trace)
 			status_check
 			break
 			;;
 		reset_progress) #resets all levels and exp back to zero
 			reset_all
+			break
+			;;
+		easy_mode) #sets the level_CAP at 50XP permanently
+			echo "level_CAP=50" >> ~/.exp_gen/exp_gen.conf
+			break
+			;;
+		normal_mode) #basically rebuilds ~/.exp_gen/exp_gen.conf minus the level_cap value.
+			rm ~/.exp_gen/exp_gen.conf
+			touch ~/.exp_gen/exp_gen.conf
+			echo "#!/bin/bash" >> ~/.exp_gen/exp_gen.conf
+			echo "Version=$Version" >> ~/.exp_gen/exp_gen.conf
 			break
 			;;
 		*)
@@ -186,10 +219,15 @@ done
 #This part of the block is where the system checks for the following and determines if
 #it's time to level up or not:
 
+#sources the exp_gen.conf file in case easy-mode was enabled.
+
+
 # check current EXP ammount:
 currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
 # check progress to next level
+
 next_level #this defines the level_cap based on your current level
+source ~/.exp_gen/exp_gen.conf #this includes a value that IF SET, will override next_level
 if [ $currentEXP -ge $level_CAP ] #if your current EXP is greater than or equal to the level cap, level up
 then
 	level_up

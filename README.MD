@@ -9,58 +9,80 @@ Leveling up: Results in a positive reinforcement message echoed to console + rew
 There are several ways to earn EXP:
 
 1. exp command line manual addition:
-$ exp add +n
-using the exp add command and the modifier (+/-) will add or subtract that much EXP from your running total.
+$ exp add [e]
+using the exp add command and including a value [e] will add or subtract that much EXP from your running total.
+
+> $ exp add 5
+> earned '5' exp!
 
 
 2. Tracking a task via timer. (work for n minutes and earn EXP gain either repeatedly every n or at end of timer)
-$ exp time n +e (alt: $ exp -timer n) - n time in minutes, e=exp to add
-$ exp timeloop n +e (alt: $ exp -timer -repeat n) - n time in minutes, e= exp to add.
+command options: timer or timeloop:
 
-examples:
-$ exp time 15 +5
-at 15 minutes, alerts user and provides 5 EXP gain
+> $ exp timer 5
+> wait how long before gaining '5' exp? (in minutes - whole integers only)
+> 10
+> now waiting for '600' seconds, press ctrl+c to cancel
+> ...[after waiting 600 seconds]...
+> earned '5' exp!
 
-$ exp timeloop 30 +10
-every 30 minutes, adds +10 EXP gain (user alerted at level up)
+> $ exp timeloop 5
+> wait how long before gaining '5' exp? (in minutes - whole integers only)
+> this will loop forever until manually stopped with ctrl+c - good for study blocks
+> $ 5
+> now waiting for '300' seconds, press ctrl+c to cancel
+> earned '5' exp!
+> now waiting for '300' seconds, press ctrl+c to cancel
+> earned '5' exp!
+> ...
 
-
-3. Tracking a task via keyboard monitoring. (This does absolutely nothing more than count how many times you press the keys, and does exactly 0 logging of your keypresses).
-I'm very big on privacy, so please see the logging format of the code, and determine for yourself that this will not track/record or send your data anywhere. this software runs entirely locally and has no network capabilities. 
-
-$ exp log n +e (where n=number of keys pressed to capture, generally you should set this higher than 1000 to make this useful, and e= experience to add when accomplished 
-
-$ exp logloop n +e (same as above, but adds e every n keypresses).
-
+3. Future planned implementation: tagging to task completion via other cli tasks, or keyboard button press counting (note - I have no interest in keylogging but it might be fun to see if it'll give me exp every 500 keys I push. If I can do this safely without recording actual keypress DATA I'll think about it. currently not implemented.)
 
 # Leveling: 
-Leveling occurs on a logrythmic scale, so earning EXP goes further in the beginning than in the late game, but I also recognize that sometimes you just want to earn EXP and level up like crazy sometimes so there's a few ways that this will work. You can also always go in and set the level caps yourself.
-
-DEFAULT:
-levels 1-10 are each achieved at 50xp
-11-20 -> 75xp
-
-21-30 -> 100xp
-
-31-40 -> 125xp
-
-41-50 -> 150xp
-
-51-60 -> 175xp
-
-61-70 -> 200xp
-
-71-100 -> 225xp
-
-100-200 -> 250xp
-
-201-300 -> 275xp
+Leveling occurs on a growth scale, so earning EXP goes further in the beginning than in the late game, but I also recognize that sometimes you just want to earn EXP and level up like crazy sometimes so there's a few ways that this will work. You can also always go in and set the level caps yourself, just modify the block 
 ...
 
 Easy mode:
 adjusts all the level caps to 50XP
 
+run: $ exp easy_mode to set, $ exp normal_mode to return to regular exp gain, shown below.
 
 
+You may modify these values all you want in the exp file. 
 
 
+Level 				EXP needed
+0-10				100
+11-20				110
+21-30				125
+31-40				150
+41-50				175
+51-60				200
+61-70				225
+71-80				250
+81-90				275
+91-100				300
+101-150				325
+151-200				350
+201-250				375
+251-300				400
+301-400				425
+401-500				450
+501-600				475
+601-100000			500 #if you're up here I'll be amazed.
+
+
+	then level_CAP=400
+elif [ $currentLEVEL -le 400 ]
+	then level_CAP=425
+elif [ $currentLEVEL -le 500 ]
+	then level_CAP=450
+elif [ $currentLEVEL -le 600 ]
+	then level_CAP=475
+elif [ $currentLEVEL -le 10000 ]
+	then level_CAP=500
+fi
+
+
+To reset all your progress/levels back to zero - run:
+> $ exp reset_progress
