@@ -110,10 +110,13 @@ first_run_setup(){
 mkdir ~/.exp_gen
 touch ~/.exp_gen/exp_gen.conf
 touch ~/.exp_gen/my_exp
+echo 0 > ~/.exp_gen/my_exp
 touch ~/.exp_gen/my_level
+echo 0 > ~/.exp_gen/my_level
 cp ./level_up.txt ~/.exp_gen/
 echo "#!/bin/bash" > ~/.exp_gen/exp_gen.conf
 echo "Version=$Version" >> ~/.exp_gen/exp_gen.conf
+level_up_praise
 }
 
 reset_all() {
@@ -135,6 +138,29 @@ rmdir ~/.exp_gen
 exit 0
 }
 
+#define praise array. There's WAY better ways to do this but this works so it's fine
+level_up_praise(){
+echo "Congrats!" >> ~/.exp_gen/level_up.txt
+echo "Nice work!" >> ~/.exp_gen/level_up.txt
+echo "Hell Yeah!" >> ~/.exp_gen/level_up.txt
+echo "That's how it's done!" >> ~/.exp_gen/level_up.txt
+echo "killin' it!" >> ~/.exp_gen/level_up.txt
+echo "Crushing it!" >> ~/.exp_gen/level_up.txt
+echo "Hard work's paying off!" >> ~/.exp_gen/level_up.txt
+echo "That's the way!" >> ~/.exp_gen/level_up.txt
+echo "Get it!" >> ~/.exp_gen/level_up.txt
+echo "Outstanding!" >> ~/.exp_gen/level_up.txt
+echo "Heck Yeah!" >> ~/.exp_gen/level_up.txt
+echo "Look at you go!" >> ~/.exp_gen/level_up.txt
+echo "Wow!" >> ~/.exp_gen/level_up.txt
+echo "Great Job!" >> ~/.exp_gen/level_up.txt
+echo "Show em how it's done!" >> ~/.exp_gen/level_up.txt
+echo "Really solid work!" >> ~/.exp_gen/level_up.txt
+echo "Damn fine Job!" >> ~/.exp_gen/level_up.txt
+echo "Woooo!" >> ~/.exp_gen/level_up.txt
+echo "Super-hero!" >> ~/.exp_gen/level_up.txt
+echo "Amazing!" >> ~/.exp_gen/level_up.txt
+}
 ########################BEGIN SCRIPT######################################
 
 #CHECK FOR SETUP files (only relevant on first run ever)
@@ -249,4 +275,3 @@ if [ $currentEXP -ge $level_CAP ] #if your current EXP is greater than or equal 
 then
 	level_up
 fi
-

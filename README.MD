@@ -19,7 +19,7 @@ Leveling up: Results in a positive reinforcement message echoed to console + rew
 
 because ~/bin is part of your $PATH variable by default (if it isn't see below) it should become executable automatically when you call 'exp' in the command line. 
 
-3. run exp help to get an overview of the syntax/usage, or get started with the below command options: $ exp (status|add|timer|timeloop) [e]  --> e=experience to gain
+3. run exp once to generate the level_up files to get an overview of the syntax/usage, or get started with the below command options: $ exp (status|add|timer|timeloop) [e]  --> e=experience to gain
 
 > $ exp help
 ===========================================================================================
