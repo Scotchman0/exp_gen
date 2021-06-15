@@ -138,7 +138,7 @@ while test $# -gt 0; do
 			echo "experience generator (exp_gen) help:"
 			echo "------------"
 			echo "basic command structure: $ exp [options] [e]"
-			echo "e = experience to gain (applicable with add|time|timeloop|log|logloop"
+			echo "e = experience to gain (applicable with add|time|timeloop)"
 			echo "------------"
 			echo "options:"
 			echo ""

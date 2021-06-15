@@ -72,17 +72,5 @@ Level 				EXP needed
 601-100000			500 #if you're up here I'll be amazed.
 
 
-	then level_CAP=400
-elif [ $currentLEVEL -le 400 ]
-	then level_CAP=425
-elif [ $currentLEVEL -le 500 ]
-	then level_CAP=450
-elif [ $currentLEVEL -le 600 ]
-	then level_CAP=475
-elif [ $currentLEVEL -le 10000 ]
-	then level_CAP=500
-fi
-
-
 To reset all your progress/levels back to zero - run:
 > $ exp reset_progress
