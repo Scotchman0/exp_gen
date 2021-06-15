@@ -14,15 +14,24 @@ echo "$e" >> ~/.exp_gen/my_exp
 
 status_check() {
 echo "Current EXP:"
-awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp #this sums the lines in the exp gain log
+currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp) #sums the lines in ~/.exp_gen/my_exp
+echo $currentEXP
 echo ""
 echo "Current Level:"
 cat ~/.exp_gen/my_level
+next_level
 }
 
-level_difficulty() {
+next_level() {
 #tracks what level you are on and therefore evaluates what EXP gain is needed until next level
-echo "level_difficulty" #placeholder
+currentLEVEL=$(cat ~/.exp_gen/my_level)
+if [ $currentLEVEL -le 10 ]
+	then level_CAP=100
+elif [ currentLEVEL -ge 11 & -le 20 ]
+	then level_CAP=150
+fi
+echo "exp needed until next level:"
+echo $(($level_CAP - $currentEXP))
 }
 
 level_up() {
@@ -120,7 +129,6 @@ while test $# -gt 0; do
 			break
 			;;
 		status) # example: exp level (outputs current tracking, shows nice graphical trace)
-			echo "your current exp and level are:"
 			status_check
 			break
 			;;

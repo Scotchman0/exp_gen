@@ -5,6 +5,9 @@
 check_version=$(grep "version" ~/.exp_gen/exp_gen.conf)
 echo $check_version
 
+install() {
+	
+}
 
 uninstall () {
 # confirms user wants to uninstall/delete all exp + level data then purges files:
