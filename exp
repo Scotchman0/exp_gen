@@ -77,9 +77,8 @@ echo $((1+$LEVEL)) > ~/.exp_gen/my_level
 echo "new level: $(cat ~/.exp_gen/my_level)"
 
 #clear exp counter and keep rollover:
-#placeholder - for now, every level up is at 100xp
 currentEXP=$(awk '{s+=$1} END {printf "%.0f", s}' ~/.exp_gen/my_exp)
-echo $(($currentEXP-100)) > ~/.exp_gen/my_exp
+echo $(($currentEXP-$level_CAP)) > ~/.exp_gen/my_exp
 }
 
 timer() {
