@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#EXP leveling system, designed/written/maintained by: Will Russell (Scotchman0)
+#Version: 0.1
+#Release date: 6/15/21
+
+#define what is needed by the program:
+
+level_tracker() {
+#this will check a running log file for ongoing totals to evaluate level score
+echo "level_tracker" #placeholder
+}
+
+level_difficulty() {
+#tracks what level you are on and therefore evaluates what EXP gain is needed until next level
+echo "level_difficulty" #placeholder
+}
+
+level_up() {
+# When you hit a level cap and level_tracker rolls over, echo random line from "level_up.txt" +
+# provide n value of break reward
+echo "level_up!" #placeholder
+}
+
+timer() {
+# provides basic timer functionality (sleep/wait) n minutes and then adds defined 'e' exp gain
+echo "timer" #placeholder
+}
+
+time_loop() {
+#provides basic timer functionality (sleep/wait) n minutes and then adds defined 'e' exp gain
+# runs until manually stopped (no break while loop).
+echo "time_loop" #placeholder
+}
+
+
+exp() {
+# the basic building block of EXP_GEN, captures user defined 'e' value and applies it to logged exp value.
+echo "exp" #placeholder
+}
+
+
+
