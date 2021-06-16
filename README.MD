@@ -32,6 +32,7 @@ using the exp add command and including a value [e] will add or subtract that mu
 Just finished a git commit/finished a chapter/completed a workout?
 
 > $ exp add 5
+> 
 > earned '5' exp!
 
 
@@ -39,20 +40,34 @@ Just finished a git commit/finished a chapter/completed a workout?
 command options: timer or timeloop:
 
 > $ exp timer 5
+> 
 > wait how long before gaining '5' exp? (in minutes - whole integers only)
+> 
 > 10
+> 
 > now waiting for '600' seconds, press ctrl+c to cancel
+> 
 > ...[after waiting 600 seconds]...
+> 
 > earned '5' exp!
 
+
 > $ exp timeloop 5
+> 
 > wait how long before gaining '5' exp? (in minutes - whole integers only)
+> 
 > this will loop forever until manually stopped with ctrl+c - good for study blocks
+> 
 > $ 5
+> 
 > now waiting for '300' seconds, press ctrl+c to cancel
+> 
 > earned '5' exp!
+> 
 > now waiting for '300' seconds, press ctrl+c to cancel
+> 
 > earned '5' exp!
+> 
 > ...
 
 # Leveling: 
@@ -62,7 +77,10 @@ Leveling occurs on a growth scale, so earning EXP goes further in the beginning 
 Easy mode:
 adjusts all the level caps to 50XP
 
-run: $ exp easy_mode to set, $ exp normal_mode to return to regular exp gain, shown below.
+run:
+> $ exp easy_mode 
+
+> $ exp normal_mode to return to regular exp gain, shown below.
 
 
 You may modify these values all you want in the exp file. 
@@ -108,4 +126,5 @@ Level 				EXP needed
 
 
 To reset all your progress/levels back to zero - run:
+
 > $ exp reset_progress
