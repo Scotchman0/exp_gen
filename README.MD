@@ -71,8 +71,7 @@ command options: timer or timeloop:
 > ...
 
 # Leveling: 
-Leveling occurs on a growth scale, so earning EXP goes further in the beginning than in the late game, but I also recognize that sometimes you just want to earn EXP and level up like crazy sometimes so there's a few ways that this will work. You can also always go in and set the level caps yourself, just modify the block 
-...
+Leveling occurs on a growth scale, so earning EXP goes further in the beginning than in the late game, but I also recognize that sometimes you just want to earn EXP and level up like crazy sometimes so there's a few ways that this will work. You can also always go in and set the level caps yourself, just modify ~/.exp_gen/exp_gen.conf and add the line: level_CAP=50 (or whatever modified lower/higher static value you wish to have set). To reset back to normal mode just run $ exp normal_mode and it'll undo your changes.
 
 Easy mode:
 adjusts all the level caps to 50XP
