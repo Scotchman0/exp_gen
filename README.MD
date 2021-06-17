@@ -70,7 +70,18 @@ command options: timer or timeloop:
 > 
 > ...
 
+# Check your level/exp gain:
+
+> exp status
+
+![exp status](https://user-images.githubusercontent.com/35974491/122405010-aefa4200-cf4d-11eb-9843-ae4bf00b7254.png)
+
+
 # Leveling: 
+
+![level_up](https://user-images.githubusercontent.com/35974491/122405235-e0730d80-cf4d-11eb-86a6-28327fff3eb5.png)
+
+
 Leveling occurs on a growth scale, so earning EXP goes further in the beginning than in the late game, but I also recognize that sometimes you just want to earn EXP and level up like crazy sometimes so there's a few ways that this will work. You can also always go in and set the level caps yourself, just modify ~/.exp_gen/exp_gen.conf and add the line: level_CAP=50 (or whatever modified lower/higher static value you wish to have set). To reset back to normal mode just run $ exp normal_mode and it'll undo your changes.
 
 Easy mode:
@@ -127,3 +138,17 @@ Level 				EXP needed
 To reset all your progress/levels back to zero - run:
 
 > $ exp reset_progress
+
+----------------------------------------
+
+# other commands:
+Uninstall:
+
+> exp uninstall_exp
+
+Get help with commands:
+
+> exp help
+
+
+
