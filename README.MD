@@ -135,20 +135,22 @@ Level 				EXP needed
 601-10000		|	500 #if you're up here I'll be amazed.
 
 
-To reset all your progress/levels back to zero - run:
-
-> $ exp reset_progress
-
 ----------------------------------------
 
 # other commands:
 Uninstall:
 
-> exp uninstall_exp
+> exp uninstall_exp #removes all contents in ~/.exp_gen/* (which were generated on first time exp launch)
+
+(don't forget to delete your symlink in ~/bin or else when you call exp again it'll put these files back).
 
 Get help with commands:
 
 > exp help
+
+To reset all your progress/levels back to zero - run:
+
+> $ exp reset_progress
 
 
 
