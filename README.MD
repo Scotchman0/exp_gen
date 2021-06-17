@@ -90,7 +90,7 @@ adjusts all the level caps to 50XP
 run:
 > $ exp easy_mode 
 
-> $ exp normal_mode to return to regular exp gain, shown below.
+> $ exp normal_mode   #to return to regular exp gain, shown below (this is already enabled by default)
 
 
 You may modify these values all you want in the exp file. 
