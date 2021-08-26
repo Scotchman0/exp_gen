@@ -181,7 +181,7 @@ while test $# -gt 0; do
 			echo "------------"
 			echo "options:"
 			echo ""
-			echo " help | -h | h  ------- prints breif help, then exits"
+			echo " help | -h | h  ------- prints brief help, then exits"
 			echo " status         ------- prints current exp ammount and current level"
 			echo " add | -a [e]   ------- adds [e] ammount of exp immediately"
 			echo " timer | -t [e] ------- waits (in minutes) then adds [e]"
